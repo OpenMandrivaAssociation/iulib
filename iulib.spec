@@ -3,7 +3,7 @@
 
 Name:		%{name}
 Version:	0.3
-Release:	%mkrel 1
+Release:	%mkrel 2
 Summary:	A library of image understanding-related algorithms
 License:	Apache
 Group:		System/Libraries
