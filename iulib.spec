@@ -2,13 +2,13 @@
 %define develname	%mklibname %{name} -d
 
 Name:		%{name}
-Version:	0.3
-Release:	%mkrel 2
+Version:	0.4
+Release:	%mkrel 1
 Summary:	A library of image understanding-related algorithms
 License:	Apache
 Group:		System/Libraries
 URL:		http://code.google.com/p/iulib/
-Source:		http://iulib.googlecode.com/files/%{name}-%{version}.tar.gz
+Source:		http://iulib.googlecode.com/files/%{name}-%{version}.tgz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:  scons
 BuildRequires:  png-devel
@@ -17,7 +17,7 @@ BuildRequires:	tiff-devel
 BuildRequires:	SDL_gfx-devel
 BuildRequires:	SDL-devel
 BuildRequires:	SDL_image-devel
-
+BuildRequires:	imagemagick
 
 %description
 Iulib implements easy-to-use image and video I/O functions, as well as a
@@ -26,7 +26,6 @@ Iulib implements easy-to-use image and video I/O functions, as well as a
 %package -n	%{develname}
 Summary: 	Header files, libraries and development documentation for %{name}
 Group:		Development/C
-#Requires:	%{libname} = %{version}
 Provides:	%{name}-devel = %{version}-%{release}
 
 %description -n	%{develname}
@@ -35,34 +34,25 @@ documentation for %{name}. If you like to develop programs using %{name},
 you will need to install %{name}-devel.
 
 %prep
-%setup -q -n %{name}
+%setup -q -n %{name}-%{version}
 
 %build
-%configure2_5x --prefix=%{_prefix}
-%make
+%scons prefix=%{_prefix} opt="%{optflags}"
 
 %install
 rm -rf %{buildroot}
-%makeinstall
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
+%scons_install opt="%{optflags}" prefix=%{buildroot}/%{_prefix}
+%if "%{_lib}" != "lib"
+mkdir -p %{buildroot}/%{_libdir}
+mv %{buildroot}/%{_prefix}/lib/*.a %{buildroot}/%{_libdir}
 %endif
 
 %clean
 rm -rf %{buildroot}
 
-#%files -n %{libname}
-#%defattr(-,root,root)
-#%{_libdir}/*.so.%{major}
-#%{_libdir}/*.so.%{major}.*
-
 %files -n %{develname}
 %defattr(-,root,root,-)
 %{_includedir}/colib/*.h
-%{_includedir}/*.h
+%{_includedir}/iulib/*.h
 %{_libdir}/*.a
 
