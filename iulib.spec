@@ -3,14 +3,14 @@
 
 Name:		%{name}
 Version:	0.4
-Release:	%mkrel 1
+Release:	%mkrel 2
 Summary:	A library of image understanding-related algorithms
 License:	Apache
 Group:		System/Libraries
 URL:		http://code.google.com/p/iulib/
 Source:		http://iulib.googlecode.com/files/%{name}-%{version}.tgz
+Patch0:		iulib-0.4-add-includes.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires:  scons
 BuildRequires:  png-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	tiff-devel
@@ -35,17 +35,17 @@ you will need to install %{name}-devel.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0 -p0 -b .old
 
 %build
-%scons prefix=%{_prefix} opt="%{optflags}"
+./build
+autoreconf -fi
+%configure2_5x
+%make
 
 %install
 rm -rf %{buildroot}
-%scons_install opt="%{optflags}" prefix=%{buildroot}/%{_prefix}
-%if "%{_lib}" != "lib"
-mkdir -p %{buildroot}/%{_libdir}
-mv %{buildroot}/%{_prefix}/lib/*.a %{buildroot}/%{_libdir}
-%endif
+%makeinstall_std
 
 %clean
 rm -rf %{buildroot}
