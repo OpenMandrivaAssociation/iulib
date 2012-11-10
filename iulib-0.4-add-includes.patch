@@ -1,0 +1,32 @@
+--- genAM.py.old	2009-06-09 18:32:20.000000000 -0400
++++ genAM.py	2009-09-28 01:18:03.000000000 -0400
+@@ -25,7 +25,7 @@
+ # Primary Repository: http://ocropus.googlecode.com/svn/trunk/
+ # Web Sites: www.iupr.org, www.dfki.de
+ 
+-AM_CPPFLAGS = -I$(srcdir)/colib -I$(srcdir)/imgio -I$(srcdir)/imglib
++AM_CPPFLAGS = -I$(srcdir)/colib -I$(srcdir)/imgio -I$(srcdir)/imglib -I$(srcdir)/imgbits -I$(srcdir)/vidio -I$(srcdir)/utils
+ 
+ includedir = ${prefix}/include/iulib
+ colibdir = ${prefix}/include/colib
+@@ -103,14 +103,14 @@
+ # make installation of colib a separate target
+ 
+ install-colib:
+-	install -d $(colibdir)
+-	install $(colib_HEADERS) $(colibdir)
++	install -d $(DESTDIR)/$(colibdir)
++	install $(colib_HEADERS) $(DESTDIR)/$(colibdir)
+ 
+ install: all install-colib
+-	install -d $(includedir)
+-	install -d $(libdir)
+-	install $(include_HEADERS) $(includedir)
+-	install $(lib_LIBRARIES) $(libdir)
++	install -d $(DESTDIR)/$(includedir)
++	install -d $(DESTDIR)/$(libdir)
++	install $(include_HEADERS) $(DESTDIR)/$(includedir)
++	install $(lib_LIBRARIES) $(DESTDIR)/$(libdir)
+ """
+ 
+ print
