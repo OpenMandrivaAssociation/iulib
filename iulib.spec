@@ -1,16 +1,16 @@
+%global debug_package %{nil}
 %define name    iulib
 %define develname	%mklibname %{name} -d
 
 Name:		%{name}
 Version:	0.4
-Release:	%mkrel 3
+Release:	4
 Summary:	A library of image understanding-related algorithms
 License:	Apache
 Group:		System/Libraries
 URL:		http://code.google.com/p/iulib/
-Source:		http://iulib.googlecode.com/files/%{name}-%{version}.tgz
+Source0:		http://iulib.googlecode.com/files/%{name}-%{version}.tgz
 Patch0:		iulib-0.4-add-includes.patch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires:  png-devel
 BuildRequires:	jpeg-devel
 BuildRequires:	tiff-devel
@@ -47,12 +47,32 @@ autoreconf -fi
 rm -rf %{buildroot}
 %makeinstall_std
 
-%clean
-rm -rf %{buildroot}
-
 %files -n %{develname}
 %defattr(-,root,root,-)
 %{_includedir}/colib/*.h
 %{_includedir}/iulib/*.h
 %{_libdir}/*.a
+
+
+
+%changelog
+* Fri Dec 10 2010 Oden Eriksson <oeriksson@mandriva.com> 0.4-3mdv2011.0
++ Revision: 619684
+- the mass rebuild of 2010.0 packages
+
+* Mon Sep 28 2009 Funda Wang <fwang@mandriva.org> 0.4-2mdv2010.0
++ Revision: 450465
+- fix build when using autotools
+
+* Mon Sep 28 2009 Funda Wang <fwang@mandriva.org> 0.4-1mdv2010.0
++ Revision: 450460
+- New version 0.4
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild
+
+* Sat Feb 28 2009 Emmanuel Andry <eandry@mandriva.org> 0.3-1mdv2009.1
++ Revision: 346187
+- import iulib
+
 
