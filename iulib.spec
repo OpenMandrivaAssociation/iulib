@@ -4,7 +4,7 @@
 
 Name:		%{name}
 Version:	0.4
-Release:	4
+Release:	5
 Summary:	A library of image understanding-related algorithms
 License:	Apache
 Group:		System/Libraries
