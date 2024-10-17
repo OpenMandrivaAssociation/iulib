@@ -8,7 +8,7 @@ Release:	5
 Summary:	A library of image understanding-related algorithms
 License:	Apache
 Group:		System/Libraries
-URL:		http://code.google.com/p/iulib/
+URL:		https://code.google.com/p/iulib/
 Source0:		http://iulib.googlecode.com/files/%{name}-%{version}.tgz
 Patch0:		iulib-0.4-add-includes.patch
 BuildRequires:  png-devel
